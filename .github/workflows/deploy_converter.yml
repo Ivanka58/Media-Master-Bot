@@ -1,17 +1,12 @@
-name: Auto-Redeploy Converter Bot
+name: Deploy Converter Bot
 
 on:
-  # Автоматическое обновление каждые 5 часов
-  schedule:
-    - cron: '0 */5 * * *'
-
-  # Также выполняется при пушах в основную ветку
   push:
     branches:
       - main
 
 jobs:
-  auto_redeploy:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,14 +17,8 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-      - name: Stop Running Instance (если используется Heroku или аналогичное решение)
-        run: |
-          heroku ps:scale worker=0 -a YOUR_APP_NAME
-      - name: Start New Instance
+      - name: Run the Bot
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: |
-          nohup python bot.py > log.out &
-      - name: Clean Old Logs
-        run: |
-          rm -f log.out
+          python bot.py
