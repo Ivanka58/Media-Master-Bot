@@ -14,6 +14,9 @@ from telegram.ext import (
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Получаем токен из переменной окружения
+TOKEN = os.getenv('BOT_TOKEN')
+
 # Константы состояний разговора
 CONVERT_FILE, EXTRACT_AUDIO, REMOVE_AUDIO = range(3)
 
@@ -152,7 +155,7 @@ async def fallback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     return ConversationHandler.END
 
 def main() -> None:
-    application = ApplicationBuilder().token("YOUR_BOT_TOKEN").build()
+    application = ApplicationBuilder().token(TOKEN).build()
 
     conv_handler = ConversationHandler(
         entry_points=[
