@@ -37,7 +37,7 @@ async def convert_file_start(update: Update, context: ContextTypes.DEFAULT_TYPE)
     """Начало процесса конвертации файла."""
     query = update.callback_query
     await query.answer()
-    formats = ["mp3", "wav", "ogg", "flac", "mkv", "avi", "mp4"]
+    formats = ["mp3", "wav", "ogg", "flac", "mkv", "avi", "mp4", "txt", "PDF", "docx"]
     buttons = [[InlineKeyboardButton(fmt, callback_data=f'source_{fmt}') for fmt in formats]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await query.edit_message_text(text="Выберите исходный формат файла:", reply_markup=reply_markup)
@@ -49,7 +49,7 @@ async def select_target_format(update: Update, context: ContextTypes.DEFAULT_TYP
     source_format = query.data.split('_')[1]
     context.user_data['source_format'] = source_format
     await query.answer()
-    formats = ["mp3", "wav", "ogg", "flac", "mkv", "avi", "mp4"]  # Форматы кроме выбранного ранее
+    formats = ["mp3", "wav", "ogg", "flac", "mkv", "avi", "mp4", "txt", "PDF", "docx"]  # Форматы кроме выбранного ранее
     buttons = [[InlineKeyboardButton(fmt, callback_data=f'target_{fmt}') for fmt in formats if fmt != source_format]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await query.edit_message_text(text="Теперь выберите целевой формат файла:", reply_markup=reply_markup)
