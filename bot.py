@@ -171,10 +171,10 @@ def main() -> None:
                 MessageHandler(filters.Document.ALL, handle_file_conversion),
             ],
             EXTRACT_AUDIO: [
-                MessageHandler(filters.Video | filters.Animation, process_extract_audio),
+                MessageHandler(filters.VIDEO | filters.ANIMATION, process_extract_audio),
             ],
             REMOVE_AUDIO: [
-                MessageHandler(filters.Video | filters.Animation, process_remove_audio),
+                MessageHandler(filters.VIDEO | filters.ANIMATION, process_remove_audio),
             ],
         },
         fallbacks=[MessageHandler(filters.ALL, fallback)],
