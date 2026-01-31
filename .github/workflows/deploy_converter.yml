@@ -1,12 +1,17 @@
-name: Deploy Converter Bot
+name: Auto-Redeploy Converter Bot
 
 on:
+  # Автоматическое обновление каждые 5 часов
+  schedule:
+    - cron: '0 */5 * * *'
+
+  # Также выполняется при пушах в основную ветку
   push:
     branches:
       - main
 
 jobs:
-  build_and_deploy:
+  auto_redeploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,4 +26,7 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: |
-          python bot.py
+          nohup python bot.py > log.out &
+      - name: Clean Old Logs
+        run: |
+          rm -f log.out
