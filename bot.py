@@ -81,7 +81,7 @@ async def handle_file_conversion(update: Update, context: ContextTypes.DEFAULT_T
     os.remove(file_name)
     os.remove(converted_file_name)
     
-    await update.effective_chat.send_message("Спасибо, что пользуйтесь нашим ботом!")
+    await update.effective_chat.send_message("Спасибо, что пользуетесь нашим ботом!")
     return ConversationHandler.END
 
 async def extract_audio_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
